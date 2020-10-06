@@ -1,10 +1,27 @@
 from django.shortcuts import render
 
 from . import util
+from markdown2 import Markdown
+from django import forms
 
 
 def index(request):
     return render(request, "encyclopedia/index.html", {
         "entries": util.list_entries()
     })
+
+def entry(request,title):
+    entries= util.list_entries()
+    if title in entries:
+        entrypage= util.get_entry(title)
+        convertpage= Markdown().convert(entrypage)
+
+        content={
+            'entrypage':convertpage,
+            'title': title,
+        }
+
+        return render(request, "encyclopedia/entries.html",content)
+    else:
+        return render(request, "encyclopedia/error.html")
 
