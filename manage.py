@@ -3,6 +3,7 @@
 import os
 import sys
 
+__name__ is not None
 
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'wiki.settings')
